@@ -45,7 +45,7 @@ function App() {
           <h1 className="text-3xl font-extrabold text-center text-indigo-700 tracking-tight drop-shadow-sm">
             Equipment Maintenance Tracker
           </h1>
-        {user && <Navbar user={user} onLogout={handleLogout} />}
+          {user && <Navbar user={user} onLogout={handleLogout} />}
         </header>
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
@@ -77,7 +77,7 @@ function App() {
             path="/reports"
             element={
               <ProtectedRoute user={user}>
-                <Reports token={token} />
+                <Reports token={token} user={user} />
               </ProtectedRoute>
             }
           />
