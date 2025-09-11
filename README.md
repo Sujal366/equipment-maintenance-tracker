@@ -18,7 +18,6 @@ _**Streamlining Maintenance, Empowering Efficiency and Reliability**_
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
   - [Usage](#usage)
-  - [Testing](#testing)
 
 ---
 
@@ -63,13 +62,24 @@ Build equipment-maintenance-tracker from the source and install dependencies:
    ```bash
    cd equipment-maintenance-tracker
    ```
-3. **Install the dependencies:
+3. **Install backend dependencies:
    ```bash
+   cd backend
+   npm install
+   ```
+4. **Install frontend dependencies:
+   ```bash
+   cd ../frontend
    npm install
    ```
 
 ### Usage
-Run the project with:
+From the backend folder, run:
+Using npm:
+```bash
+npm run dev
+```
+From the frontend folder, run:
 Using npm:
 ```bash
 npm run dev
