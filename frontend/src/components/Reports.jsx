@@ -1,0 +1,47 @@
+import React from "react";
+
+function Reports({ token }) {
+  const download = async (type) => {
+    const res = await fetch(`http://localhost:5001/api/reports/${type}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${type}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  };
+  return (
+    <div className="max-w-md mx-auto p-4">
+      <div className="bg-white rounded-xl shadow-lg p-6 space-y-4">
+        <h2 className="text-2xl font-bold mb-4 text-indigo-700 text-center">
+          Reports
+        </h2>
+        <button
+          className="w-full bg-indigo-600 text-white font-semibold py-2 rounded hover:bg-indigo-700 transition shadow"
+          onClick={() => download("equipment-status")}
+        >
+          Equipment Status PDF
+        </button>
+        <button
+          className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition shadow"
+          onClick={() => download("workorder-summary")}
+        >
+          Work Order Summary PDF
+        </button>
+        <button
+          className="w-full bg-green-600 text-white font-semibold py-2 rounded hover:bg-green-700 transition shadow"
+          onClick={() => download("technician-workload")}
+        >
+          Technician Workload PDF
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default Reports;
