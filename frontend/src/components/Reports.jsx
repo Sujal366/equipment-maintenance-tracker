@@ -1,6 +1,20 @@
 import React from "react";
 
-function Reports({ token }) {
+function Reports({ token, user }) {
+  if (!user || (user.role !== "Manager" && user.role !== "Supervisor")) {
+    return (
+      <div className="max-w-md mx-auto p-4">
+        <div className="bg-white rounded-xl shadow-lg p-6">
+          <h2 className="text-2xl font-bold mb-4 text-indigo-700 text-center">
+            Reports
+          </h2>
+          <p className="text-center text-gray-500">
+            You do not have access to view or download reports.
+          </p>
+        </div>
+      </div>
+    );
+  }
   const download = async (type) => {
     const res = await fetch(
       `${import.meta.env.VITE_API_URL}/api/reports/${type}`,

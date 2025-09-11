@@ -26,12 +26,14 @@ function Navbar({ user, onLogout }) {
         >
           Work Orders
         </Link>
-        <Link
-          to="/reports"
-          className="text-gray-700 hover:text-indigo-600 font-medium transition"
-        >
-          Reports
-        </Link>
+        {user && (user.role === "Manager" || user.role === "Supervisor") && (
+          <Link
+            to="/reports"
+            className="text-gray-700 hover:text-indigo-600 font-medium transition"
+          >
+            Reports
+          </Link>
+        )}
       </div>
       {user && (
         <button
