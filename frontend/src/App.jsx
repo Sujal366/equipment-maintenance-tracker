@@ -41,12 +41,12 @@ function App() {
     <Router>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100 font-sans">
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
-        <header className="py-6 mb-4 shadow bg-white/80 backdrop-blur sticky top-0 z-40">
+        <header className="flex items-center justify-between p-2 shadow bg-white/80 backdrop-blur sticky top-0 z-40">
           <h1 className="text-3xl font-extrabold text-center text-indigo-700 tracking-tight drop-shadow-sm">
             Equipment Maintenance Tracker
           </h1>
-        </header>
         {user && <Navbar user={user} onLogout={handleLogout} />}
+        </header>
         <Routes>
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route

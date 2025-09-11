@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Navbar({ user, onLogout }) {
   return (
-    <nav className="flex items-center justify-between px-8 py-3 bg-white/90 shadow rounded-lg mb-6 mx-auto max-w-4xl">
+    <nav className="flex items-center justify-between px-8 py-3 bg-white/90 rounded-lg max-w-4xl">
       <div className="flex items-center gap-6">
         {/* <span className="font-bold text-indigo-700 text-lg tracking-wide">
           EMT
