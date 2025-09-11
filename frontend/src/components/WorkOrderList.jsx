@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
 import WorkOrderForm from "./WorkOrderForm";
 import WorkOrderStatusUpdate from "./WorkOrderStatusUpdate";
 import Modal from "./Modal";
@@ -15,7 +17,7 @@ function WorkOrderList({ token, user }) {
 
   const fetchWorkOrders = () => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/workorders`, {
+      .get(`${API_URL}/api/workorders`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setWorkOrders(res.data))

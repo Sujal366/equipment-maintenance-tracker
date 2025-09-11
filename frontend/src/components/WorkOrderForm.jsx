@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Toast from "./Toast";
+
+const API_URL = import.meta.env.VITE_API_URL;
+import { toast } from "react-hot-toast";
 
 function WorkOrderForm({ token, user, onSuccess }) {
   const [form, setForm] = useState({
@@ -14,16 +16,15 @@ function WorkOrderForm({ token, user, onSuccess }) {
   });
   const [equipmentList, setEquipmentList] = useState([]);
   const [technicians, setTechnicians] = useState([]);
-  const [toast, setToast] = useState({ message: "", type: "success" });
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/equipment`, {
+      .get(`${API_URL}/api/equipment`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setEquipmentList(res.data));
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/auth/technicians`, {
+      .get(`${API_URL}/api/auth/technicians`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setTechnicians(res.data));
@@ -35,12 +36,12 @@ function WorkOrderForm({ token, user, onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setToast({ message: "", type: "success" });
+
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/workorders`, form, {
+      await axios.post(`${API_URL}/api/workorders`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setToast({ message: "Work order created!", type: "success" });
+      toast.success("Work order created!");
       setForm({
         title: "",
         equipment: "",
@@ -52,20 +53,12 @@ function WorkOrderForm({ token, user, onSuccess }) {
       });
       if (onSuccess) onSuccess();
     } catch (err) {
-      setToast({
-        message: err.response?.data?.message || "Failed to create work order",
-        type: "error",
-      });
+      toast.error(err.response?.data?.message || "Failed to create work order");
     }
   };
 
   return (
     <>
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        onClose={() => setToast({ message: "", type: "success" })}
-      />
       <form
         onSubmit={handleSubmit}
         className="max-w-md bg-white p-4 rounded space-y-4"

@@ -2,9 +2,12 @@ import React from "react";
 
 function Reports({ token }) {
   const download = async (type) => {
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/reports/${type}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/reports/${type}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     const blob = await res.blob();
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");

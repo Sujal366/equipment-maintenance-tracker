@@ -1,37 +1,27 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Toast from "./Toast";
+import { toast } from "react-hot-toast";
 
 function WorkOrderStatusUpdate({ workOrder, token, onStatusChange }) {
-  const [toast, setToast] = useState({ message: "", type: "success" });
-
   const handleChange = async (e) => {
     const status = e.target.value;
     try {
       await axios.put(
-        `${process.env.REACT_APP_API_URL}/api/workorders/${workOrder._id}`,
+        `${import.meta.env.VITE_API_URL}/api/workorders/${workOrder._id}`,
         { status },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      setToast({ message: "Status updated!", type: "success" });
+      toast.success("Status updated!");
       if (onStatusChange) onStatusChange();
     } catch (err) {
-      setToast({
-        message: err.response?.data?.message || "Failed to update status",
-        type: "error",
-      });
+      toast.error(err.response?.data?.message || "Failed to update status");
     }
   };
 
   return (
     <>
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        onClose={() => setToast({ message: "", type: "success" })}
-      />
       <select
         className="input input-bordered"
         value={workOrder.status}

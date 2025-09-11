@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
 import EquipmentForm from "./EquipmentForm";
 import Modal from "./Modal";
 
@@ -12,7 +14,7 @@ function EquipmentList({ token, user }) {
 
   const fetchEquipment = () => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/api/equipment`, {
+      .get(`${API_URL}/api/equipment`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setEquipment(res.data))

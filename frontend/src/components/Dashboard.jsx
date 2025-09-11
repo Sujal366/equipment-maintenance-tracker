@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "./Loader";
-import Toast from "./Toast";
+import { toast } from "react-hot-toast";
 
 function Dashboard({ user }) {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState({ message: "", type: "success" });
 
   useEffect(() => {
     async function fetchStats() {
       setLoading(true);
       try {
+        const API_URL = import.meta.env.VITE_API_URL;
         const [equipmentRes, workOrderRes] = await Promise.all([
-          axios.get(`${process.env.REACT_APP_API_URL}/api/equipment`, {
+          axios.get(`${API_URL}/api/equipment`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }),
-          axios.get(`${process.env.REACT_APP_API_URL}/api/workorders`, {
+          axios.get(`${API_URL}/api/workorders`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -35,7 +35,7 @@ function Dashboard({ user }) {
             .length,
         });
       } catch (err) {
-        setToast({ message: "Failed to load dashboard stats", type: "error" });
+        toast.error("Failed to load dashboard stats");
       } finally {
         setLoading(false);
       }
@@ -45,11 +45,6 @@ function Dashboard({ user }) {
 
   return (
     <div className="max-w-2xl mx-auto p-4">
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        onClose={() => setToast({ message: "", type: "success" })}
-      />
       <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
         <h2 className="text-2xl font-bold mb-2 text-indigo-700">
           Welcome, {user.name}{" "}

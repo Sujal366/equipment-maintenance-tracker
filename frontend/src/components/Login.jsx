@@ -12,10 +12,13 @@ function Login({ onLogin }) {
     e.preventDefault();
     setError("");
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          email,
+          password,
+        }
+      );
       onLogin(res.data);
       navigate("/");
     } catch (err) {

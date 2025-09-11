@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Toast from "./Toast";
+
+const API_URL = import.meta.env.VITE_API_URL;
+import { toast } from "react-hot-toast";
 
 function EquipmentForm({ token, onSuccess }) {
   const [form, setForm] = useState({
@@ -10,7 +12,6 @@ function EquipmentForm({ token, onSuccess }) {
     lastMaintenance: "",
     nextMaintenance: "",
   });
-  const [toast, setToast] = useState({ message: "", type: "success" });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -18,12 +19,12 @@ function EquipmentForm({ token, onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setToast({ message: "", type: "success" });
+
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/api/equipment`, form, {
+      await axios.post(`${API_URL}/api/equipment`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setToast({ message: "Equipment added successfully!", type: "success" });
+      toast.success("Equipment added successfully!");
       setForm({
         name: "",
         type: "",
@@ -33,20 +34,12 @@ function EquipmentForm({ token, onSuccess }) {
       });
       if (onSuccess) onSuccess();
     } catch (err) {
-      setToast({
-        message: err.response?.data?.message || "Failed to add equipment",
-        type: "error",
-      });
+      toast.error(err.response?.data?.message || "Failed to add equipment");
     }
   };
 
   return (
     <>
-      <Toast
-        message={toast.message}
-        type={toast.type}
-        onClose={() => setToast({ message: "", type: "success" })}
-      />
       <form
         onSubmit={handleSubmit}
         className="max-w-md bg-white p-4 rounded space-y-4"
