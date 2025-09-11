@@ -2,7 +2,7 @@ import React from "react";
 
 function Reports({ token }) {
   const download = async (type) => {
-    const res = await fetch(`http://localhost:5001/api/reports/${type}`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/reports/${type}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const blob = await res.blob();

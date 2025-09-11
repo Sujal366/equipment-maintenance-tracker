@@ -18,12 +18,12 @@ function WorkOrderForm({ token, user, onSuccess }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/equipment", {
+      .get(`${process.env.REACT_APP_API_URL}/api/equipment`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setEquipmentList(res.data));
     axios
-      .get("http://localhost:5001/api/auth/technicians", {
+      .get(`${process.env.REACT_APP_API_URL}/api/auth/technicians`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setTechnicians(res.data));
@@ -37,7 +37,7 @@ function WorkOrderForm({ token, user, onSuccess }) {
     e.preventDefault();
     setToast({ message: "", type: "success" });
     try {
-      await axios.post("http://localhost:5001/api/workorders", form, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/workorders`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setToast({ message: "Work order created!", type: "success" });

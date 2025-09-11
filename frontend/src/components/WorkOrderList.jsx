@@ -15,7 +15,7 @@ function WorkOrderList({ token, user }) {
 
   const fetchWorkOrders = () => {
     axios
-      .get("http://localhost:5001/api/workorders", {
+      .get(`${process.env.REACT_APP_API_URL}/api/workorders`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setWorkOrders(res.data))

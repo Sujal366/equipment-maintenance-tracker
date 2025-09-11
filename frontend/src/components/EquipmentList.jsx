@@ -12,7 +12,7 @@ function EquipmentList({ token, user }) {
 
   const fetchEquipment = () => {
     axios
-      .get("http://localhost:5001/api/equipment", {
+      .get(`${process.env.REACT_APP_API_URL}/api/equipment`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setEquipment(res.data))

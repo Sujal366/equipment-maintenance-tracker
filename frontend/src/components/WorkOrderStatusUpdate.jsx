@@ -9,7 +9,7 @@ function WorkOrderStatusUpdate({ workOrder, token, onStatusChange }) {
     const status = e.target.value;
     try {
       await axios.put(
-        `http://localhost:5001/api/workorders/${workOrder._id}`,
+        `${process.env.REACT_APP_API_URL}/api/workorders/${workOrder._id}`,
         { status },
         {
           headers: { Authorization: `Bearer ${token}` },

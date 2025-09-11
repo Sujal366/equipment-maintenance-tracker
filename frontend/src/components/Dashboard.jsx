@@ -13,12 +13,12 @@ function Dashboard({ user }) {
       setLoading(true);
       try {
         const [equipmentRes, workOrderRes] = await Promise.all([
-          axios.get("http://localhost:5001/api/equipment", {
+          axios.get(`${process.env.REACT_APP_API_URL}/api/equipment`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }),
-          axios.get("http://localhost:5001/api/workorders", {
+          axios.get(`${process.env.REACT_APP_API_URL}/api/workorders`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },

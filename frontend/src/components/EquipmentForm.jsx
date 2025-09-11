@@ -20,7 +20,7 @@ function EquipmentForm({ token, onSuccess }) {
     e.preventDefault();
     setToast({ message: "", type: "success" });
     try {
-      await axios.post("http://localhost:5001/api/equipment", form, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/api/equipment`, form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setToast({ message: "Equipment added successfully!", type: "success" });
