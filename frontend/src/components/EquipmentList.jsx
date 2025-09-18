@@ -35,14 +35,14 @@ function EquipmentList({ token, user }) {
   );
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <div className="bg-white rounded-xl shadow-lg p-6">
-        <h2 className="text-2xl font-bold mb-4 text-indigo-700">
+    <div className="max-w-4xl mx-auto p-2 sm:p-4">
+      <div className="bg-white rounded-xl shadow-lg p-2 sm:p-6">
+        <h2 className="text-xl sm:text-2xl font-bold mb-4 text-indigo-700">
           Equipment List
         </h2>
-        <div className="flex flex-wrap gap-2 mb-4 items-center">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-2 mb-4 items-center">
           <select
-            className="px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full sm:w-auto"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -52,14 +52,14 @@ function EquipmentList({ token, user }) {
             <option value="Out of Service">Out of Service</option>
           </select>
           <input
-            className="px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="px-3 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-400 w-full sm:w-auto"
             placeholder="Search name/type..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           {(user.role === "Manager" || user.role === "Supervisor") && (
             <button
-              className="ml-auto px-4 py-2 bg-indigo-600 text-white rounded font-semibold hover:bg-indigo-700 transition shadow cursor-pointer"
+              className="w-full sm:w-auto sm:ml-auto px-4 py-2 bg-indigo-600 text-white rounded font-semibold hover:bg-indigo-700 transition shadow cursor-pointer"
               onClick={() => setShowModal(true)}
               type="button"
             >
@@ -78,7 +78,7 @@ function EquipmentList({ token, user }) {
         </Modal>
         {error && <div className="text-red-500 mb-2">{error}</div>}
         <div className="overflow-x-auto rounded-lg shadow mt-4">
-          <table className="min-w-full bg-white">
+          <table className="min-w-full bg-white text-sm sm:text-base">
             <thead>
               <tr className="bg-indigo-100 text-indigo-700">
                 <th className="py-2 px-4 text-left font-semibold">Name</th>
